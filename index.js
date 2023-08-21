@@ -112,7 +112,7 @@ app.post("/addLoginData", jsonParser, async (req, res) => {
 	const sessionToAdd = {
 		sessionNumber: loginData.sessionNumber,
 		logInTime: loginData.logInTime,
-		logOutTime: loginData.logOutTime,
+		// logOutTime: loginData.logOutTime,
 	};
 	// myColl.findOne({ date: loginData.date, "sessions.sessionNumber" : loginData.sessionNumber }, function (err, result) {
 	//     if (err) {
@@ -162,6 +162,7 @@ app.post("/addLogoutData", jsonParser, async (req, res) => {
             "sessions.$": sessionToAdd,
         }
 	};
+	// const options = { upsert: true };
 	await myColl.updateMany(query, update);
 	res.send("success   ");
 });
