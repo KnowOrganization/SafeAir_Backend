@@ -113,6 +113,8 @@ app.post("/addLoginData", jsonParser, async (req, res) => {
 		sessionNumber: loginData.sessionNumber,
 		logInTime: loginData.logInTime,
 		// logOutTime: loginData.logOutTime,
+		logInLocation: [loginData.logInLat, loginData.logInLng],
+		// logOutLocation: [loginData.logOutLat, loginData.logOutLng],
 	};
 	// myColl.findOne({ date: loginData.date, "sessions.sessionNumber" : loginData.sessionNumber }, function (err, result) {
 	//     if (err) {
@@ -152,6 +154,8 @@ app.post("/addLogoutData", jsonParser, async (req, res) => {
 		sessionNumber: logoutData.sessionNumber,
 		logInTime: logoutData.logInTime,
 		logOutTime: logoutData.logOutTime,
+		logInLocation: [logoutData.logInLat, logoutData.logInLng],
+		logOutLocation: [logoutData.logOutLat, logoutData.logOutLng],
 	};
 	const query = {
         date: logoutData.date,
