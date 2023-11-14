@@ -9,6 +9,8 @@ const port = 4000;
 // import { admin , auth} from "firebase-admin";
 const admin = require("firebase-admin");
 const { getAuth } = require("firebase-admin/auth");
+const { getDatabase } = require('firebase-admin/database');
+
 
 const mongoose = require("mongoose");
 const { MongoClient, ServerApiVersion } = require("mongodb");
@@ -22,7 +24,11 @@ const { log } = require("console");
 // Intialize the firebase-admin project/account
 admin.initializeApp({
 	credential: admin.credential.cert(serviceAccount),
+	databaseURL: "https://safeair-b0c14-default-rtdb.asia-southeast1.firebasedatabase.app",
 });
+
+const db = getDatabase();
+const ref = db.ref('locations');
 
 app.listen(port, () => console.log(`Dolphin app listening on port ${port}!`));
 
@@ -254,5 +260,6 @@ app.put("/updateUser/:uid", jsonParser, async (req, res) => {
 app.delete("/deleteUser/:uid", async (req, res) => {
 	const uid = req.params.uid;
 	const user = await admin.auth().deleteUser(uid);
+	await ref.child(uid).remove();
 	res.send(user);
 });
